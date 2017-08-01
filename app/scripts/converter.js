@@ -8,10 +8,10 @@ module.exports = {
         json.forEach(function (object) {
             // if (object.inputType === 'text') {
             //     console.log(object);
-            //     this.saveInputText(object);
+            //     saveInputText(object);
             // }
             // if (object.inputType === 'checkbox' && object.value === true) {
-            //     this.saveInputCheck(object);
+            //     saveInputCheck(object);
             // }
 
             // if (object.subQuestions) {
@@ -19,9 +19,9 @@ module.exports = {
             //     console.log(object.value);
 
             //  }
-             if(object.type === 'textarea'){
-                 console.log(object.value);
-             }
+            if (object.type === 'textarea') {
+                console.log(object.value);
+            }
         }, this);
         console.log(stringDoArquivo);
         // fs.writeFile('./TXT/test.txt', stringDoArquivo, function (err, result) {
@@ -31,24 +31,24 @@ module.exports = {
         //         console.log(result);
         //     }
         // });
-    },
-    saveInputText: function (object) {
-        var linha = `Nome: ${object.value} \n`;
-        if (!stringDoArquivo) {
-            stringDoArquivo = linha;
-        }
-        else {
-            stringDoArquivo += linha;
-        }
-    },
+    }
+}
+function saveInputText(object) {
+    var linha = `Nome: ${object.value} \n`;
+    if (!stringDoArquivo) {
+        stringDoArquivo = linha;
+    }
+    else {
+        stringDoArquivo += linha;
+    }
+}
 
-    saveInputCheck: function (object) {
-        var linha = `${object.label.description} ${object.value} \n`;
-        if (!stringDoArquivo) {
-            stringDoArquivo = linha;
-        }
-        else {
-            stringDoArquivo += linha;
-        }
+function saveInputCheck(object) {
+    var linha = `${object.label.description} ${object.value} \n`;
+    if (!stringDoArquivo) {
+        stringDoArquivo = linha;
+    }
+    else {
+        stringDoArquivo += linha;
     }
 }

@@ -1,5 +1,5 @@
-var app = require('./config/express')();
+var app = require('./app/config/express')();
 
-app.listen(3000, function () {
+app.listen(3010, function () {
 
 });
