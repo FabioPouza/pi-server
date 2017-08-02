@@ -1,25 +1,15 @@
 var converter = require("../scripts/converter");
 var lista = require('../scripts/listar')
 var fs = require('fs');
-var qtd;
-
-function geraNomeDoArquivo(requisicao) {
-    var nome = './JSON/' + requisicao + qtd.length + '.json';
-    return nome;
-}
-
-
+var path = './JSON';
 
 module.exports = function (app) {
-
-
 
     app.get('/lista', function (req, res) {
 
         lista.lista()
             .then(function (files) {
                 res.json(files);
-                qtd = files;
             })
             .catch(function (err) {
                 console.log(err);
@@ -27,12 +17,16 @@ module.exports = function (app) {
     });
 
     app.post('/lista', function (req, res) {
+        //fs.writeFile('go.json', JSON.stringify(req.body));
 
-        var atsafd = req.body.cc;
-        var nome = geraNomeDoArquivo(atsafd);
-        fs.writeFile(nome, JSON.stringify(req.body));
-        res.send('OK');
+
+        req.pipe(fs.createWriteStream('./JSON/' + req.headers.cc))
+            .on('finish', function () {
+                res.status(200).send('OK');
+            });
     });
+
+
 
 
 
