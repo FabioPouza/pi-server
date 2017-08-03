@@ -1,5 +1,6 @@
 var converter = require("../scripts/converter");
 var lista = require('../scripts/listar')
+var download = require('download-file');
 var fs = require('fs');
 var path = './JSON';
 
@@ -14,6 +15,24 @@ module.exports = function (app) {
             .catch(function (err) {
                 console.log(err);
             });
+    });
+
+
+    app.get('/download/:name', function (req, res) {
+
+        var nomeDoArquivo = req.params.name;
+        fs.readFile('./JSON/' + nomeDoArquivo, function (err, content) {
+            if (err) {
+                res.writeHead(400, { 'Content-type': 'text/html' })
+                console.log(err);
+                res.end("No such file");
+            } else {
+                //specify Content will be an attachment
+                res.setHeader('Content-disposition', 'attachment; filename=' + nomeDoArquivo);
+                res.end(content);
+            }
+        });
+
     });
 
     app.post('/lista', function (req, res) {
